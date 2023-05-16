@@ -63,3 +63,12 @@ function adicionarMemoria() {
             break;
     }
 }
+
+
+function apagar() {
+    let visor = document.getElementById('visor').value;
+    if (visor != '') {
+        visor = visor.substring(0, (visor.length - 1));
+        document.getElementById('visor').value = visor;
+    }
+}

@@ -18,6 +18,10 @@ body{
     box-shadow: 1px 1px 1px #000;
 }
 
+.btnbs {
+    margin-left: 75px;
+}
+
 #m1, #m2, #m3{
     color: red;
 }
