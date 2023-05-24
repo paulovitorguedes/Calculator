@@ -1,3 +1,4 @@
+var caculator = new Calculator();
 var memo = Array();
 
 function calcular(botao) {

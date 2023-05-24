@@ -1,11 +1,17 @@
 class Calculator {
 
-    construdtor() {
-        this._displayEl = document.querySelector('visor');
+    constructor() {
+        // this._displayEl = document.querySelector('#visor');
+        this.initEventListener();
     }
 
     initialise() {
 
+    }
+
+    initEventListener() {
+        let btn = document.querySelectorAll('.btn');
+        console.log(btn);
     }
 
     get display() {
