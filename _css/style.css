@@ -50,7 +50,7 @@ body, .displayInputs{
     width: 130px;
 }
 
-.resultado {
+.result {
     text-align: right;
     font-size: 20px;
     /* margin-top: 10px; */
@@ -70,4 +70,13 @@ body, .displayInputs{
 #display {
     margin-bottom: 10px;
 }
+
+.custom-control.custom-checkbox {
+    margin-left: 10px;
+}
+
+.custom-control-label {
+    color: chartreuse
+}
+
 
