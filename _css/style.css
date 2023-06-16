@@ -2,7 +2,7 @@ body, .displayInputs{
     background: #D9D9D9;
 }
 
-.calculadora {
+.calculator {
     margin-top: 40px;
     border: solid 1px #000;
     padding: 20px;
@@ -11,7 +11,7 @@ body, .displayInputs{
     box-shadow: 1px 1px 5px #000;
 }
 
-.historico {
+.cotaianerHistoric {
     margin-top: 40px;
     border: solid 1px #000;
     padding: 5px;
@@ -19,6 +19,7 @@ body, .displayInputs{
     border-radius: 10px;
     box-shadow: 1px 1px 5px #000;
     margin-left: 10px;
+    color: chartreuse
     /* display: none; */
 }
 
@@ -62,11 +63,11 @@ body, .displayInputs{
     border-radius: 0;
 }
 
-#dis-aux, #dis-visor {
+#displayAux, #display {
     border: 0px;
 }
 
-#dis-visor {
+#display {
     margin-bottom: 10px;
 }
 
