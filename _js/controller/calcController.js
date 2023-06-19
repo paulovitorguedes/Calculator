@@ -2,14 +2,16 @@ class Calculator {
 
     constructor() {
         this._operations = new Array;
+        this._operationsSide = '';
         this._displayEl = document.querySelector('#display');
+        this._displaySideEl = document.querySelector('#displaySide');
 
         this.initialise();
     }
 
     initialise() {
         this.initBtnEvents();
-        this.addNewOperaion('0');
+        this.addNewOperation('0');
         this.display = this.lastOperation;
     }
 
@@ -32,20 +34,19 @@ class Calculator {
     }
 
     addOperations(value) {
-        if (this.lastOperation == 0) {
+        if (parseFloat(this.lastOperation) == 0) {
 
             if (this.isNum(value)) {
                 this.lastOperation = value;
                 this.display = this.lastOperation;
 
-            } else if (this.isOperation()) {
-
-
-            } else if (ponto) {
+            } else if (this.isOperation(value)) {
+                this.displaySide = this.lastOperation + value;
+                this.addNewOperation(value);
 
             }
-        }
-        this.display = value;
+        
+        } 
     }
 
     isNum(value) {
@@ -56,11 +57,14 @@ class Calculator {
         return num;
     }
 
+    isOperation(value) {
+        return ['+', '-', 'x', '/', '%'].indexOf(value) > -1;
+    }
 
 
 
 
-    addNewOperaion(value) {
+    addNewOperation(value) {
         this._operations.push(value);
     }
 
@@ -75,10 +79,17 @@ class Calculator {
 
 
     get display() {
-        return this._displayEl;
+        return this._displayEl.value;
     }
     set display(value) {
         this._displayEl.value = value;
+    }
+
+    get displaySide() {
+        return this._displaySideEl.value;
+    }
+    set displaySide(value) {
+        this._displaySideEl.value = value;
     }
 
 }
