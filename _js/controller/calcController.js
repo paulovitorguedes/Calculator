@@ -34,6 +34,7 @@ class Calculator {
     }
 
     addOperations(value) {
+        console.log(`entrada: ${value} ultima op ${this.lastOperation}`);
         if (parseFloat(this.lastOperation) == 0) {
 
             if (this.isNum(value)) {
@@ -46,7 +47,32 @@ class Calculator {
 
             }
         
-        } 
+        } else if (this.isNum(this.lastOperation)) {
+
+            if (this.isNum(value)) {
+                this.lastOperation += value;
+                this.display = this.lastOperation;
+
+            } else if (this.isOperation(value)) {
+                this.displaySide = this.lastOperation + value;
+                this.addNewOperation(value);
+
+            }
+
+        } else if (this.isOperation(this.lastOperation)) {
+
+            if (this.isNum(value)) {     
+                this.display = value;
+                this.addNewOperation(value);
+
+            } else if (this.isOperation(value)) {
+                this.displaySide = this.firstOperation + value;
+                this.lastOperation = value
+
+            }
+            
+        }
+
     }
 
     isNum(value) {
@@ -77,6 +103,12 @@ class Calculator {
         return this._operations[this._operations.length - 1];
     }
 
+    set firstOperation(value) {
+        this._operations[0] = value;
+    }
+    get firstOperation() {
+        return this._operations[0];
+    }
 
     get display() {
         return this._displayEl.value;
