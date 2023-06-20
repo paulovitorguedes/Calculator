@@ -67,13 +67,16 @@ body, .displayInputs{
 
 #displaySide, #display {
     border: 0px;
+    font-family: 'Digital-7';
 }
 
 #display {
-    margin-bottom: 10px;
-    font-family: 'Digital-7';
+    margin-bottom: 10px;  
     font-size: 2rem;
+    font-weight: bold;
 }
+
+
 
 .custom-control.custom-checkbox {
     margin-left: 10px;
