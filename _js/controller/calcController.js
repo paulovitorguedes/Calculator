@@ -41,8 +41,11 @@ class Calculator {
                 this.addDot(value);
                 break;
             case 'C':
-                this.clearAll()
-                break;        
+                this.clearAll();
+                break;
+            case 'CE':
+                this.cancelEntry();
+                break;
             default:
                 this.addOperations(value);
                 break;
@@ -53,10 +56,10 @@ class Calculator {
     addDot(dot) {
 
         if (this.isNum(this.lastOperation) && !this.searchInLastOperation(dot)) {
-            
+
             this.lastOperation += dot;
             this.display = this.lastOperation;
-        
+
         } else if (this.isOperation(this.lastOperation)) {
 
             this.newOperation = '0.';
@@ -70,7 +73,7 @@ class Calculator {
 
             if (this.isNum(value)) {
 
-                if(this.searchInLastOperation('.')) {
+                if (this.searchInLastOperation('.')) {
                     this.lastOperation += value;
                     this.display = this.lastOperation;
 
@@ -78,7 +81,7 @@ class Calculator {
                     this.lastOperation = value;
                     this.display = this.lastOperation;
                 }
-                
+
 
             } else if (this.isOperation(value)) {
                 this.displaySide = this.lastOperation + value;
@@ -136,9 +139,20 @@ class Calculator {
     }
 
     clearAll() {
-        console.log('teste');
         this._operations = ['0'];
         this.display = this.lastOperation;
+        this.displaySide = '';
+    }
+
+    cancelEntry() {
+        if(this.isNum(this.lastOperation)) {
+            this._operations.pop();
+            this.newOperation = '0';
+            this.display = this.lastOperation;
+
+        } else if(this.isOperation(this.lastOperation)) {
+            this.display = '0';
+        }
     }
 
 
@@ -146,7 +160,7 @@ class Calculator {
     set newOperation(value) {
         this._operations.push(value);
     }
-       
+
     set lastOperation(value) {
         this._operations[this._operations.length - 1] = value;
     }
