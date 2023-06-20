@@ -11,7 +11,7 @@ class Calculator {
 
     initialise() {
         this.initBtnEvents();
-        this.newOperation = '0';
+        this.clearAll();
         this.display = this.lastOperation;
     }
 
@@ -40,7 +40,9 @@ class Calculator {
             case '.':
                 this.addDot(value);
                 break;
-        
+            case 'C':
+                this.clearAll()
+                break;        
             default:
                 this.addOperations(value);
                 break;
@@ -131,6 +133,12 @@ class Calculator {
 
     searchInLastOperation(value) {
         return this.lastOperation.indexOf(value) > -1;
+    }
+
+    clearAll() {
+        console.log('teste');
+        this._operations = ['0'];
+        this.display = this.lastOperation;
     }
 
 
