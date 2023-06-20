@@ -2,7 +2,7 @@ class Calculator {
 
     constructor() {
         this._operations = new Array;
-        this._operationsSide = '';
+        this._result = '';
         this._displayEl = document.querySelector('#display');
         this._displaySideEl = document.querySelector('#displaySide');
 
@@ -45,6 +45,9 @@ class Calculator {
                 break;
             case 'CE':
                 this.cancelEntry();
+                break;
+            case 'X':
+                this.addOperations('*');
                 break;
             default:
                 this.addOperations(value);
@@ -96,8 +99,18 @@ class Calculator {
                 this.display = this.lastOperation;
 
             } else if (this.isOperation(value)) {
-                this.displaySide = this.lastOperation + value;
-                this.newOperation = value;
+                if(this._operations.length <= 2) {
+                    this.displaySide = this.lastOperation + value;
+                    this.newOperation = value;
+
+                } else {
+                    this._result = this.calc();
+                    this.displaySide = this._result.toString() + value;
+                    this._operations.pop()
+                    this.firstOperation = this._result;
+                    this.lastOperation = value;
+                }
+                
 
             }
 
@@ -118,7 +131,15 @@ class Calculator {
     }
 
 
+    calc() {
+        try {
+            return eval(this._operations.join(''));
 
+        } catch (error) {
+            this.display = 'ERROR';
+            this.displaySide = '';
+        }
+    }
 
 
 
@@ -157,8 +178,11 @@ class Calculator {
 
 
 
+
+
+
     set newOperation(value) {
-        this._operations.push(value);
+         this._operations.push(value);
     }
 
     set lastOperation(value) {
