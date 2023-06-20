@@ -11,7 +11,7 @@ class Calculator {
 
     initialise() {
         this.initBtnEvents();
-        this.addNewOperation('0');
+        this.newOperation = '0';
         this.display = this.lastOperation;
     }
 
@@ -28,25 +28,62 @@ class Calculator {
         let elements = document.querySelectorAll('.btn');
         elements.forEach(element => {
             this.addEventListenerAll(element, 'click drag', e => {
-                this.addOperations(element.innerHTML);
+                this.execBtn(element.innerHTML);
             })
         })
     }
 
+
+    execBtn(value) {
+
+        switch (value) {
+            case '.':
+                this.addDot(value);
+                break;
+        
+            default:
+                this.addOperations(value);
+                break;
+        }
+    }
+
+
+    addDot(dot) {
+
+        if (this.isNum(this.lastOperation) && !this.searchInLastOperation(dot)) {
+            
+            this.lastOperation += dot;
+            this.display = this.lastOperation;
+        
+        } else if (this.isOperation(this.lastOperation)) {
+
+            this.newOperation = '0.';
+            this.display = this.lastOperation;
+        }
+    }
+
+
     addOperations(value) {
-        console.log(`entrada: ${value} ultima op ${this.lastOperation}`);
         if (parseFloat(this.lastOperation) == 0) {
 
             if (this.isNum(value)) {
-                this.lastOperation = value;
-                this.display = this.lastOperation;
+
+                if(this.searchInLastOperation('.')) {
+                    this.lastOperation += value;
+                    this.display = this.lastOperation;
+
+                } else {
+                    this.lastOperation = value;
+                    this.display = this.lastOperation;
+                }
+                
 
             } else if (this.isOperation(value)) {
                 this.displaySide = this.lastOperation + value;
-                this.addNewOperation(value);
+                this.newOperation = value;
 
             }
-        
+
         } else if (this.isNum(this.lastOperation)) {
 
             if (this.isNum(value)) {
@@ -55,25 +92,30 @@ class Calculator {
 
             } else if (this.isOperation(value)) {
                 this.displaySide = this.lastOperation + value;
-                this.addNewOperation(value);
+                this.newOperation = value;
 
             }
 
         } else if (this.isOperation(this.lastOperation)) {
 
-            if (this.isNum(value)) {     
+            if (this.isNum(value)) {
                 this.display = value;
-                this.addNewOperation(value);
+                this.newOperation = value;
 
             } else if (this.isOperation(value)) {
                 this.displaySide = this.firstOperation + value;
                 this.lastOperation = value
 
             }
-            
+
         }
 
     }
+
+
+
+
+
 
     isNum(value) {
         let num = true;
@@ -87,15 +129,16 @@ class Calculator {
         return ['+', '-', 'x', '/', '%'].indexOf(value) > -1;
     }
 
-
-
-
-    addNewOperation(value) {
-        this._operations.push(value);
+    searchInLastOperation(value) {
+        return this.lastOperation.indexOf(value) > -1;
     }
 
 
 
+    set newOperation(value) {
+        this._operations.push(value);
+    }
+       
     set lastOperation(value) {
         this._operations[this._operations.length - 1] = value;
     }
