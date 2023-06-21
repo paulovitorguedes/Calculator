@@ -10,6 +10,7 @@ class Calculator {
     }
 
     initialise() {
+
         this.initBtnEvents();
         this.clearAll();
         this.display = this.lastOperation;
@@ -18,13 +19,15 @@ class Calculator {
 
     // A função deve receber os elementos html, os eventos separados por (" ") e a função 
     addEventListenerAll(element, event, fn) {
+
         event.split(" ").forEach(e => {
             element.addEventListener(e.trim(), fn)
         })
     }
 
-    //Adiciona os eventos 'click drag' aos btn chamando a função addOperations
+    //Adiciona os eventos 'click drag' aos btn chamando a função addElements
     initBtnEvents() {
+
         let elements = document.querySelectorAll('.btn');
         elements.forEach(element => {
             this.addEventListenerAll(element, 'click drag', e => {
@@ -46,11 +49,18 @@ class Calculator {
             case 'CE':
                 this.cancelEntry();
                 break;
-            case 'X':
-                this.addOperations('*');
+            case 'x':
+                this.addBtnOperation('*');
+                break;
+            case '+':
+            case '-':
+            case 'x':
+            case '/':
+            case '%':
+                this.addBtnOperation(value);
                 break;
             default:
-                this.addOperations(value);
+                this.addElements(value);
                 break;
         }
     }
@@ -70,72 +80,72 @@ class Calculator {
         }
     }
 
+    addBtnOperation(value) {
 
-    addOperations(value) {
-        if (parseFloat(this.lastOperation) == 0) {
+        if (this._operations.length <= 2) {
 
-            if (this.isNum(value)) {
+            if (this.isOperation(this.lastOperation)) {
 
-                if (this.searchInLastOperation('.')) {
-                    this.lastOperation += value;
-                    this.display = this.lastOperation;
+                this.lastOperation = value;
+                this.displaySide = this.firstOperation + this.lastOperation;
 
-                } else {
-                    this.lastOperation = value;
-                    this.display = this.lastOperation;
-                }
+            } else {
 
-
-            } else if (this.isOperation(value)) {
                 this.displaySide = this.lastOperation + value;
                 this.newOperation = value;
+            }
 
+
+        } else {
+
+            this._result = this.calc();
+            this.displaySide = this._result.toString() + value;
+            this._operations.pop()
+            this.firstOperation = this._result;
+            this.lastOperation = value;
+            this.display = this._result;
+
+        }
+    }
+
+
+    addElements(value) {
+
+        if (parseFloat(this.lastOperation) == 0) {
+
+            if (this.searchInLastOperation('.')) {
+
+                this.lastOperation += value;
+                this.display = this.lastOperation;
+
+            } else {
+
+                this.lastOperation = value;
+                this.display = this.lastOperation;
             }
 
         } else if (this.isNum(this.lastOperation)) {
 
-            if (this.isNum(value)) {
-                this.lastOperation += value;
-                this.display = this.lastOperation;
+            this.lastOperation += value;
+            this.display = this.lastOperation;
 
-            } else if (this.isOperation(value)) {
-                if(this._operations.length <= 2) {
-                    this.displaySide = this.lastOperation + value;
-                    this.newOperation = value;
-
-                } else {
-                    this._result = this.calc();
-                    this.displaySide = this._result.toString() + value;
-                    this._operations.pop()
-                    this.firstOperation = this._result;
-                    this.lastOperation = value;
-                }
-                
-
-            }
 
         } else if (this.isOperation(this.lastOperation)) {
 
-            if (this.isNum(value)) {
-                this.display = value;
-                this.newOperation = value;
-
-            } else if (this.isOperation(value)) {
-                this.displaySide = this.firstOperation + value;
-                this.lastOperation = value
-
-            }
-
+            this.display = value;
+            this.newOperation = value;
         }
 
     }
 
 
     calc() {
+
         try {
             return eval(this._operations.join(''));
 
         } catch (error) {
+
             this.display = 'ERROR';
             this.displaySide = '';
         }
@@ -144,34 +154,42 @@ class Calculator {
 
 
     isNum(value) {
+
         let num = true;
         if (isNaN(value)) {
+
             num = false;
         }
         return num;
     }
 
     isOperation(value) {
-        return ['+', '-', 'x', '/', '%'].indexOf(value) > -1;
+
+        return ['+', '-', '*', '/', '%'].indexOf(value) > -1;
     }
 
     searchInLastOperation(value) {
+
         return this.lastOperation.indexOf(value) > -1;
     }
 
     clearAll() {
+
         this._operations = ['0'];
         this.display = this.lastOperation;
         this.displaySide = '';
     }
 
     cancelEntry() {
-        if(this.isNum(this.lastOperation)) {
+
+        if (this.isNum(this.lastOperation)) {
+
             this._operations.pop();
             this.newOperation = '0';
             this.display = this.lastOperation;
 
-        } else if(this.isOperation(this.lastOperation)) {
+        } else if (this.isOperation(this.lastOperation)) {
+
             this.display = '0';
         }
     }
@@ -182,7 +200,8 @@ class Calculator {
 
 
     set newOperation(value) {
-         this._operations.push(value);
+
+        this._operations.push(value);
     }
 
     set lastOperation(value) {
