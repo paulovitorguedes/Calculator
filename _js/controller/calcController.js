@@ -67,22 +67,24 @@ class Calculator {
         }
     }
 
-
+    //A função adiciona e trata a entrada do btn PONTO (.)
     addDot(dot) {
 
         if (this.isNum(this.lastOperation) && !this.searchInLastOperation(dot)) {
+            //Último elemento é um número e não contém ponto
 
             this.lastOperation += dot;
             this.display = this.lastOperation;
 
         } else if (this.isOperation(this.lastOperation)) {
+            //O Último elemento é um btn de operação
 
             this.newOperation = '0.';
             this.display = this.lastOperation;
         }
     }
 
-
+    //A função adiciona e trata a entrada do btn PORCENTO (%)
     addPercent() {
 
         let percent = 0;
@@ -118,13 +120,13 @@ class Calculator {
 
         if (percent != 0) {
             this.displaySide += percent;
-            this.newOperation = percent;
+            this.lastOperation = percent.toString();
             this.display = this.lastOperation;
         }
 
     }
 
-
+    //A função adiciona e trata a entrada do btn de OPERAÇÔES (+, -, *, /)
     addBtnOperation(operation) {
 
         if (this._operations.length <= 2) {
