@@ -82,42 +82,48 @@ class Calculator {
         }
     }
 
+
     addPercent() {
 
         let percent = 0;
 
         if (this.isOperation(this.lastOperation)) {
+            //O Último elemento é um btn de operação
 
             if (this.lastOperation == '+' || this.lastOperation == '-') {
-
+                //O btn de operação é + ou -
                 percent = Math.pow(this.firstOperation, 2) / 100;
 
             } else {
-
+                //O btn de operação é * ou /
                 percent = this.firstOperation / 100;
-
             }
 
 
 
         } else if (this._operations.length > 2) {
+            // O último elemento é um número e já possui 3 elementos no Array
 
-            if (this.lastOperation == '+' || this.lastOperation == '-') {
-
+            if (this._operations[1] == '+' || this._operations[1] == '-') {
+                //O btn de operação é + ou -
                 percent = this.lastOperation * this.firstOperation / 100;
 
             } else {
-
+                //O btn de operação é * ou /
                 percent = this.lastOperation / 100;
 
             }
 
         }
 
-        this.displaySide += percent;
-        this.newOperation = percent;
-        this.display = this.lastOperation;
+        if (percent != 0) {
+            this.displaySide += percent;
+            this.newOperation = percent;
+            this.display = this.lastOperation;
+        }
+
     }
+
 
     addBtnOperation(operation) {
 
