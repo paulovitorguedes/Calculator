@@ -56,9 +56,11 @@ class Calculator {
             case '-':
             case 'x':
             case '/':
-            case '%':
                 this.addBtnOperation(value);
                 break;
+            case '%':
+                this.addPercent();
+                break
             default:
                 this.addElements(value);
                 break;
@@ -80,60 +82,97 @@ class Calculator {
         }
     }
 
-    addBtnOperation(value) {
+    addPercent() {
+
+        let percent = 0;
+
+        if (this.isOperation(this.lastOperation)) {
+
+            if (this.lastOperation == '+' || this.lastOperation == '-') {
+
+                percent = Math.pow(this.firstOperation, 2) / 100;
+
+            } else {
+
+                percent = this.firstOperation / 100;
+
+            }
+
+
+
+        } else if (this._operations.length > 2) {
+
+            if (this.lastOperation == '+' || this.lastOperation == '-') {
+
+                percent = this.lastOperation * this.firstOperation / 100;
+
+            } else {
+
+                percent = this.lastOperation / 100;
+
+            }
+
+        }
+
+        this.displaySide += percent;
+        this.newOperation = percent;
+        this.display = this.lastOperation;
+    }
+
+    addBtnOperation(operation) {
 
         if (this._operations.length <= 2) {
 
             if (this.isOperation(this.lastOperation)) {
 
-                this.lastOperation = value;
+                this.lastOperation = operation;
                 this.displaySide = this.firstOperation + this.lastOperation;
 
             } else {
 
-                this.displaySide = this.lastOperation + value;
-                this.newOperation = value;
+                this.displaySide = this.lastOperation + operation;
+                this.newOperation = operation;
             }
 
 
         } else {
 
             this._result = this.calc();
-            this.displaySide = this._result.toString() + value;
+            this.displaySide = this._result.toString() + operation;
             this._operations.pop()
             this.firstOperation = this._result;
-            this.lastOperation = value;
+            this.lastOperation = operation;
             this.display = this._result;
 
         }
     }
 
 
-    addElements(value) {
+    addElements(elenent) {
 
         if (parseFloat(this.lastOperation) == 0) {
 
             if (this.searchInLastOperation('.')) {
 
-                this.lastOperation += value;
+                this.lastOperation += elenent;
                 this.display = this.lastOperation;
 
             } else {
 
-                this.lastOperation = value;
+                this.lastOperation = elenent;
                 this.display = this.lastOperation;
             }
 
         } else if (this.isNum(this.lastOperation)) {
 
-            this.lastOperation += value;
+            this.lastOperation += elenent;
             this.display = this.lastOperation;
 
 
         } else if (this.isOperation(this.lastOperation)) {
 
-            this.display = value;
-            this.newOperation = value;
+            this.display = elenent;
+            this.newOperation = elenent;
         }
 
     }
@@ -165,7 +204,7 @@ class Calculator {
 
     isOperation(value) {
 
-        return ['+', '-', '*', '/', '%'].indexOf(value) > -1;
+        return ['+', '-', '*', '/'].indexOf(value) > -1;
     }
 
     searchInLastOperation(value) {
