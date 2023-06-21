@@ -155,7 +155,7 @@ class Calculator {
         }
     }
 
-
+    //A função adiciona e trata a entrada do btn de ELEMENTOS (numeros)
     addElements(elenent) {
 
         if (parseFloat(this.lastOperation) == 0) {
