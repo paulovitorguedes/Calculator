@@ -3,6 +3,7 @@ class Calculator {
     constructor() {
         this._operations = new Array;
         this._result = '';
+        this._operationsLastResult = '';
         this._displayEl = document.querySelector('#display');
         this._displaySideEl = document.querySelector('#displaySide');
 
@@ -34,6 +35,7 @@ class Calculator {
                 this.execBtn(element.innerHTML);
             })
         })
+
     }
 
 
@@ -50,12 +52,19 @@ class Calculator {
                 this.cancelEntry();
                 break;
             case 'x':
+                this._operationsLastResult = 'multiplication';
                 this.addBtnOperation('*');
                 break;
             case '+':
+                this._operationsLastResult = 'addition';
+                this.addBtnOperation(value);
+                break;
             case '-':
-            case 'x':
+                this._operationsLastResult = 'subtraction';
+                this.addBtnOperation(value);
+                break;
             case '/':
+                this._operationsLastResult = 'division';
                 this.addBtnOperation(value);
                 break;
             case '%':
@@ -122,6 +131,7 @@ class Calculator {
             this.displaySide += percent;
             this.lastOperation = percent.toString();
             this.display = this.lastOperation;
+            this._operationsLastResult = 'percent';
         }
 
     }
@@ -158,7 +168,7 @@ class Calculator {
     //A função adiciona e trata a entrada do btn de ELEMENTOS (numeros)
     addElements(elenent) {
 
-        if (parseFloat(this.lastOperation) == 0) {
+        if (parseFloat(this.lastOperation) == 0 || this._operationsLastResult === 'percent') {
 
             if (this.searchInLastOperation('.')) {
 
@@ -169,13 +179,16 @@ class Calculator {
 
                 this.lastOperation = elenent;
                 this.display = this.lastOperation;
+
+                if (this._operationsLastResult == 'percent') {
+                    this.displaySide = this.firstOperation + this.secondOperation;
+                }
             }
 
         } else if (this.isNum(this.lastOperation)) {
 
             this.lastOperation += elenent;
             this.display = this.lastOperation;
-
 
         } else if (this.isOperation(this.lastOperation)) {
 
@@ -263,6 +276,13 @@ class Calculator {
     }
     get firstOperation() {
         return this._operations[0];
+    }
+
+    set secondOperation(value) {
+        this._operations[1] = value;
+    }
+    get secondOperation() {
+        return this._operations[1];
     }
 
     get display() {

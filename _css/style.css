@@ -35,6 +35,7 @@ body, .displayInputs{
     box-shadow: 1px 1px 1px #000;
 }
 
+
 .btnbs {
     margin-left: 75px;
 }
@@ -75,7 +76,6 @@ body, .displayInputs{
     font-size: 2rem;
     font-weight: bold;
 }
-
 
 
 .custom-control.custom-checkbox {
