@@ -13,6 +13,7 @@ class Calculator {
     initialise() {
 
         this.initBtnEvents();
+        // this.initKeyBoard();
         this.clearAll();
         this.display = this.lastOperation;
     }
@@ -36,22 +37,34 @@ class Calculator {
             })
         })
 
+        document.addEventListener('keyup', e => {
+            this.execBtn(e.key);
+            console.log(e.key);
+        })
+
     }
+
+
 
 
     execBtn(value) {
 
         switch (value) {
             case '.':
+            case ',':
                 this.addDot(value);
                 break;
             case 'C':
+            case 'Escape':
                 this.clearAll();
                 break;
             case 'CE':
                 this.cancelEntry();
                 break;
+            case 'Backspace':
+                break;
             case 'x':
+            case '*':
                 this._operationsLastResult = 'multiplication';
                 this.addBtnOperation('*');
                 break;
