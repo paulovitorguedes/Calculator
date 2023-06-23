@@ -13,7 +13,6 @@ class Calculator {
     initialise() {
 
         this.initBtnEvents();
-        // this.initKeyBoard();
         this.clearAll();
         this.display = this.lastOperation;
     }
@@ -63,6 +62,10 @@ class Calculator {
                 break;
             case 'Backspace':
                 break;
+            case '=':
+            case 'Enter':
+                this.addEqual();
+                break;
             case 'x':
             case '*':
                 this._operationsLastResult = 'multiplication';
@@ -83,8 +86,23 @@ class Calculator {
             case '%':
                 this.addPercent();
                 break
-            default:
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':
                 this.addElements(value);
+                break;
+            case 'M+':
+            case 'M1':
+            case 'M2':
+            case 'M3':
+                this.memory();
                 break;
         }
     }
