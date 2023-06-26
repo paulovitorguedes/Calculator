@@ -51,7 +51,7 @@ class Calculator {
         switch (value) {
             case '.':
             case ',':
-                this.addDot(value);
+                this.addDot('.');
                 break;
             case 'C':
             case 'Escape':
@@ -109,6 +109,12 @@ class Calculator {
 
     //A função adiciona e trata a entrada do btn PONTO (.)
     addDot(dot) {
+
+        if (this._result != '') {
+            this.clearAll();
+            this.addDot('.');
+            return false;
+        }
 
         if (this.isNum(this.lastOperation) && !this.searchInLastOperation(dot)) {
             //Último elemento é um número e não contém ponto
@@ -176,7 +182,7 @@ class Calculator {
             if (this.isOperation(this.lastOperation)) {
 
                 this.lastOperation = operation;
-                this.displaySide = `${tthis.firstOperation} ${this.lastOperation}`;
+                this.displaySide = `${this.firstOperation} ${this.lastOperation}`;
 
             } else {
 
@@ -200,10 +206,16 @@ class Calculator {
     //A função adiciona e trata a entrada do btn de ELEMENTOS (numeros)
     addElements(elenent) {
 
+        if (this._result != '') {
+            this.clearAll();
+            this.addElements(elenent);
+            return false;
+        }
+
         if (parseFloat(this.lastOperation) == 0 || this._operationsLastResult === 'percent') {
 
             if (this.searchInLastOperation('.')) {
-
+                
                 this.lastOperation += elenent;
                 this.display = this.lastOperation;
 
