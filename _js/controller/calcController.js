@@ -2,10 +2,14 @@ class Calculator {
 
     constructor() {
         this._operations = new Array;
+        this._memory = new Array;
         this._result = '';
         this._operationsLastResult = '';
         this._displayEl = document.querySelector('#display');
         this._displaySideEl = document.querySelector('#displaySide');
+        this._m1El = document.querySelector('#m1');
+        this._m2El = document.querySelector('#m2');
+        this._m3El = document.querySelector('#m3');
 
         this.initialise();
     }
@@ -37,7 +41,6 @@ class Calculator {
         })
 
         document.addEventListener('keyup', e => {
-            // console.log(e);
             this.execBtn(e.key);
         })
 
@@ -47,7 +50,6 @@ class Calculator {
 
 
     execBtn(value) {
-        console.log(value);
         switch (value) {
             case '.':
             case ',':
@@ -105,7 +107,7 @@ class Calculator {
             case 'M1':
             case 'M2':
             case 'M3':
-                this.memory();
+                this.addMemory();
                 break;
         }
     }
@@ -344,6 +346,20 @@ class Calculator {
     }
 
 
+    addMemory() {
+
+        if (this._result != '') {
+            this._memory.unshift(this._result);
+            this.vewMemory();
+        }
+
+
+        this._memory.length > 3 ? this._memory.pop(): false;
+    }
+
+    vewMemory() {
+
+    }
 
 
 
