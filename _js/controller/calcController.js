@@ -38,7 +38,6 @@ class Calculator {
 
         document.addEventListener('keyup', e => {
             this.execBtn(e.key);
-            console.log(e.key);
         })
 
     }
@@ -47,7 +46,7 @@ class Calculator {
 
 
     execBtn(value) {
-
+        console.log(value);
         switch (value) {
             case '.':
             case ',':
@@ -86,6 +85,9 @@ class Calculator {
             case '%':
                 this.addPercent();
                 break
+            case '+/-':
+                this.convertSignal();
+                break;
             case '0':
             case '1':
             case '2':
@@ -266,6 +268,7 @@ class Calculator {
         }
     }
 
+
     calc() {
 
         try {
@@ -322,6 +325,14 @@ class Calculator {
 
             this.display = '0';
             this._result = '';
+        }
+    }
+
+    convertSignal() {
+        if (this.isNum(this.lastOperation) && this.lastOperation != '0' && this._result == '') {
+            let value = parseFloat(this.lastOperation) * -1;
+            this.lastOperation = value.toString();
+            this.display = this.lastOperation;
         }
     }
 
