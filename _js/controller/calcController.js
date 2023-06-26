@@ -159,10 +159,11 @@ class Calculator {
         }
 
         if (percent != 0) {
-            this.displaySide += percent;
+            this.displaySide += ` ${percent}`;
             this.lastOperation = percent.toString();
             this.display = this.lastOperation;
             this._operationsLastResult = 'percent';
+            this._result = '';
         }
 
     }
@@ -173,13 +174,13 @@ class Calculator {
         if (this._operations.length <= 2) {
 
             if (this.isOperation(this.lastOperation)) {
-
+                
                 this.lastOperation = operation;
-                this.displaySide = this.firstOperation + this.lastOperation;
+                this.displaySide = `${tthis.firstOperation} ${this.lastOperation}`;
 
             } else {
-
-                this.displaySide = this.lastOperation + operation;
+                
+                this.displaySide = `${this.lastOperation} ${operation}`;
                 this.newOperation = operation;
             }
 
@@ -187,7 +188,7 @@ class Calculator {
         } else {
 
             this._result = this.calc();
-            this.displaySide = this._result.toString() + operation;
+            this.displaySide = `${this._result.toString()} ${operation}`;
             this._operations.pop()
             this.firstOperation = this._result;
             this.lastOperation = operation;
@@ -212,7 +213,7 @@ class Calculator {
                 this.display = this.lastOperation;
 
                 if (this._operationsLastResult == 'percent') {
-                    this.displaySide = this.firstOperation + this.secondOperation;
+                    this.displaySide = `${this.firstOperation} ${this.secondOperation}`;
                 }
             }
 
@@ -229,16 +230,32 @@ class Calculator {
 
     }
 
+    addEqual() {
+        if (this._result == '') {
+            
+            this._result = this.calc();
+            this.display = this._result;
+            this.displaySide = `${this.firstOperation} ${this.secondOperation} ${this.lastOperation} =`
+        
+        } else {
+            this.firstOperation = this._result;
+            this._result = this.calc();
+            this.display = this._result;
+            this.displaySide = `${this.firstOperation} ${this.secondOperation} ${this.lastOperation} =`
+        }
+    }
 
     calc() {
 
         try {
-            return eval(this._operations.join(''));
+            this._result = eval(this._operations.join(''));
+            return this._result;
 
         } catch (error) {
 
             this.display = 'ERROR';
             this.displaySide = '';
+            this._result = '0';
         }
     }
 
@@ -269,6 +286,7 @@ class Calculator {
         this._operations = ['0'];
         this.display = this.lastOperation;
         this.displaySide = '';
+        this._result = '';
     }
 
     cancelEntry() {
@@ -282,6 +300,7 @@ class Calculator {
         } else if (this.isOperation(this.lastOperation)) {
 
             this.display = '0';
+            this._result = '';
         }
     }
 
@@ -296,6 +315,7 @@ class Calculator {
     }
 
     set lastOperation(value) {
+        this._result = '';
         this._operations[this._operations.length - 1] = value;
     }
     get lastOperation() {
@@ -303,6 +323,7 @@ class Calculator {
     }
 
     set firstOperation(value) {
+        this._result = '';
         this._operations[0] = value;
     }
     get firstOperation() {
@@ -310,6 +331,7 @@ class Calculator {
     }
 
     set secondOperation(value) {
+        this._result = '';
         this._operations[1] = value;
     }
     get secondOperation() {
