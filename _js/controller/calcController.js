@@ -37,6 +37,7 @@ class Calculator {
         })
 
         document.addEventListener('keyup', e => {
+            // console.log(e);
             this.execBtn(e.key);
         })
 
@@ -135,43 +136,49 @@ class Calculator {
     //A função adiciona e trata a entrada do btn PORCENTO (%)
     addPercent() {
 
-        let percent = 0;
+        if (this._result != '0') {
 
-        if (this.isOperation(this.lastOperation)) {
-            //O Último elemento é um btn de operação
 
-            if (this.lastOperation == '+' || this.lastOperation == '-') {
-                //O btn de operação é + ou -
-                percent = Math.pow(this.firstOperation, 2) / 100;
 
-            } else {
-                //O btn de operação é * ou /
-                percent = this.firstOperation / 100;
+            let percent = 0;
+
+            if (this.isOperation(this.lastOperation)) {
+                //O Último elemento é um btn de operação
+
+                if (this.lastOperation == '+' || this.lastOperation == '-') {
+                    //O btn de operação é + ou -
+                    percent = Math.pow(this.firstOperation, 2) / 100;
+
+                } else {
+                    //O btn de operação é * ou /
+                    percent = this.firstOperation / 100;
+                }
+
+
+
+            } else if (this._operations.length > 2) {
+                // O último elemento é um número e já possui 3 elementos no Array
+
+                if (this._operations[1] == '+' || this._operations[1] == '-') {
+                    //O btn de operação é + ou -
+                    percent = this.lastOperation * this.firstOperation / 100;
+
+                } else {
+                    //O btn de operação é * ou /
+                    percent = this.lastOperation / 100;
+
+                }
+
             }
 
-
-
-        } else if (this._operations.length > 2) {
-            // O último elemento é um número e já possui 3 elementos no Array
-
-            if (this._operations[1] == '+' || this._operations[1] == '-') {
-                //O btn de operação é + ou -
-                percent = this.lastOperation * this.firstOperation / 100;
-
-            } else {
-                //O btn de operação é * ou /
-                percent = this.lastOperation / 100;
-
+            if (percent != 0) {
+                this.displaySide += ` ${percent}`;
+                this.lastOperation = percent.toString();
+                this.display = this.lastOperation;
+                this._operationsLastResult = 'percent';
+                this._result = '';
             }
 
-        }
-
-        if (percent != 0) {
-            this.displaySide += ` ${percent}`;
-            this.lastOperation = percent.toString();
-            this.display = this.lastOperation;
-            this._operationsLastResult = 'percent';
-            this._result = '';
         }
 
     }
@@ -217,7 +224,7 @@ class Calculator {
         if (parseFloat(this.lastOperation) == 0 || this._operationsLastResult === 'percent') {
 
             if (this.searchInLastOperation('.')) {
-                
+
                 this.lastOperation += elenent;
                 this.display = this.lastOperation;
 
