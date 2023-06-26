@@ -174,12 +174,12 @@ class Calculator {
         if (this._operations.length <= 2) {
 
             if (this.isOperation(this.lastOperation)) {
-                
+
                 this.lastOperation = operation;
                 this.displaySide = `${tthis.firstOperation} ${this.lastOperation}`;
 
             } else {
-                
+
                 this.displaySide = `${this.lastOperation} ${operation}`;
                 this.newOperation = operation;
             }
@@ -188,11 +188,11 @@ class Calculator {
         } else {
 
             this._result = this.calc();
+            this.display = this._result;
             this.displaySide = `${this._result.toString()} ${operation}`;
             this._operations.pop()
             this.firstOperation = this._result;
             this.lastOperation = operation;
-            this.display = this._result;
 
         }
     }
@@ -232,11 +232,20 @@ class Calculator {
 
     addEqual() {
         if (this._result == '') {
-            
-            this._result = this.calc();
-            this.display = this._result;
-            this.displaySide = `${this.firstOperation} ${this.secondOperation} ${this.lastOperation} =`
-        
+
+            if (this._operations.length > 2) {
+                this._result = this.calc();
+                this.display = this._result;
+                this.displaySide = `${this.firstOperation} ${this.secondOperation} ${this.lastOperation} =`
+
+            } else {
+                this.newOperation = this.firstOperation;
+                this._result = this.calc();
+                this.display = this._result;
+                this.displaySide = `${this.firstOperation} ${this.secondOperation} ${this.lastOperation} =`
+            }
+
+
         } else {
             this.firstOperation = this._result;
             this._result = this.calc();
