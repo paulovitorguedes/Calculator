@@ -358,6 +358,12 @@ class Calculator {
     }
 
     vewMemory() {
+        let m1;
+        let m2;
+        let m3;
+        for (let i = 1; i <= this._memory.length; i++) {
+                       
+        }
 
     }
 
