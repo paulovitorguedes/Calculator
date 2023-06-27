@@ -104,10 +104,12 @@ class Calculator {
                 this.addElements(value);
                 break;
             case 'M+':
+                this.setMemory();
+                break;
             case 'M1':
             case 'M2':
             case 'M3':
-                this.addMemory();
+                this.getMemory();
                 break;
         }
     }
@@ -346,29 +348,22 @@ class Calculator {
     }
 
 
-    addMemory() {
+    setMemory() {
 
-        if (this._result != '') {
-            this._memory.unshift(this._result);
-            this.vewMemory();
-        }
-
-
+        this._memory.unshift(this.display);
         this._memory.length > 3 ? this._memory.pop(): false;
+
+        const buttonMemory = document.querySelectorAll('.memory');
+        let cont = 0;
+        buttonMemory.forEach(e => {
+            this._memory[cont] ? document.getElementById(e.id).innerHTML = this._memory[cont] : false;
+            cont ++;
+            
+        });
+
     }
 
-    vewMemory() {
-        let m1;
-        let m2;
-        let m3;
-        for (let i = 1; i <= this._memory.length; i++) {
-                       
-        }
-
-    }
-
-
-
+    
 
     set newOperation(value) {
 
