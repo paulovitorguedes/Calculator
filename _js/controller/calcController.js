@@ -322,6 +322,8 @@ class Calculator {
         this.display = this.lastOperation;
         this.displaySide = '';
         this._result = '';
+        this.setMemory(true);
+
     }
 
     cancelEntry() {
@@ -348,17 +350,25 @@ class Calculator {
     }
 
 
-    setMemory() {
+    setMemory(clear = false) {
 
-        this._memory.unshift(this.display);
-        this._memory.length > 3 ? this._memory.pop(): false;
+        if (clear) {
+            for (let i = 0; i < this._memory.length; i++) {
+                this._memory[i] = `M${i+1}`;
+            }
+
+        } else {
+
+            this._memory.unshift(this.display);
+            this._memory.length > 3 ? this._memory.pop() : false;
+        }
 
         const buttonMemory = document.querySelectorAll('.memory');
         let cont = 0;
         buttonMemory.forEach(e => {
             this._memory[cont] ? document.getElementById(e.id).innerHTML = this._memory[cont] : false;
-            cont ++;
-            
+            cont++;
+
         });
 
     }
@@ -366,14 +376,14 @@ class Calculator {
 
     playAudio() {
         let check = document.querySelector('#customCheck1');
-        if(check.checked) {
+        if (check.checked) {
             this._audio.currentTime = 0;
             this._audio.play();
         }
 
     }
 
-    
+
 
     set newOperation(value) {
 
