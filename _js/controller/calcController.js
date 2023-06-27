@@ -31,15 +31,23 @@ class Calculator {
     //Adiciona os eventos 'click drag' aos btn chamando a função addElements
     initBtnEvents() {
 
-        let elements = document.querySelectorAll('.btn');
+        let elements = document.querySelectorAll('.btnEl');
+        let memory = document.querySelectorAll('.memory');
         elements.forEach(element => {
             this.addEventListenerAll(element, 'click drag', e => {
                 this.execBtn(element.innerHTML);
             })
         })
 
+        memory.forEach(element => {
+            this.addEventListenerAll(element, 'click drag', e => {
+                this.addMemory(element.id);
+            })
+        })
+
         document.addEventListener('keyup', e => {
             this.execBtn(e.key);
+
         })
 
     }
@@ -105,11 +113,6 @@ class Calculator {
                 break;
             case 'M+':
                 this.setMemory();
-                break;
-            case 'M1':
-            case 'M2':
-            case 'M3':
-                this.getMemory();
                 break;
         }
     }
@@ -255,6 +258,14 @@ class Calculator {
 
     }
 
+    addMemory(id) {
+        let value = document.getElementById(id).innerHTML;
+        if (this.isNum(value)) {
+            this.addElements(value);
+        }
+
+    }
+
     addEqual() {
         if (this._result == '') {
 
@@ -323,7 +334,7 @@ class Calculator {
         this.display = this.lastOperation;
         this.displaySide = '';
         this._result = '';
-        this.setMemory(true);
+        // this.setMemory(true);
 
     }
 
