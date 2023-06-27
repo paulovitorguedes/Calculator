@@ -1,15 +1,13 @@
 class Calculator {
 
     constructor() {
+        this._audio = new Audio('../../_sound/click.mp3')
         this._operations = new Array;
         this._memory = new Array;
         this._result = '';
         this._operationsLastResult = '';
         this._displayEl = document.querySelector('#display');
         this._displaySideEl = document.querySelector('#displaySide');
-        this._m1El = document.querySelector('#m1');
-        this._m2El = document.querySelector('#m2');
-        this._m3El = document.querySelector('#m3');
 
         this.initialise();
     }
@@ -50,6 +48,8 @@ class Calculator {
 
 
     execBtn(value) {
+        this.playAudio();
+
         switch (value) {
             case '.':
             case ',':
@@ -360,6 +360,16 @@ class Calculator {
             cont ++;
             
         });
+
+    }
+
+
+    playAudio() {
+        let check = document.querySelector('#customCheck1');
+        if(check.checked) {
+            this._audio.currentTime = 0;
+            this._audio.play();
+        }
 
     }
 
