@@ -206,7 +206,7 @@ class Calculator {
 
         } else {
 
-            this._result = this.calc();
+            this._result = this._result == '' ? this.calc() : this._result;
             this.display = this._result;
             this.displaySide = `${this._result.toString()} ${operation}`;
             this._operations.pop()
@@ -259,13 +259,13 @@ class Calculator {
         if (this._result == '') {
 
             if (this._operations.length > 2) {
-                this._result = this.calc();
+                this._result = this.calc().toString();
                 this.display = this._result;
                 this.displaySide = `${this.firstOperation} ${this.secondOperation} ${this.lastOperation} =`
 
             } else {
                 this.newOperation = this.firstOperation;
-                this._result = this.calc();
+                this._result = this.calc().toString();
                 this.display = this._result;
                 this.displaySide = `${this.firstOperation} ${this.secondOperation} ${this.lastOperation} =`
             }
@@ -283,7 +283,7 @@ class Calculator {
     calc() {
 
         try {
-            this._result = eval(this._operations.join(''));
+            this._result = eval(this._operations.join(' '));
             return this._result;
 
         } catch (error) {
@@ -305,6 +305,7 @@ class Calculator {
         }
         return num;
     }
+
 
     isOperation(value) {
 
@@ -342,10 +343,21 @@ class Calculator {
     }
 
     convertSignal() {
-        if (this.isNum(this.lastOperation) && this.lastOperation != '0' && this._result == '') {
-            let value = parseFloat(this.lastOperation) * -1;
-            this.lastOperation = value.toString();
-            this.display = this.lastOperation;
+        if (this.isNum(this.lastOperation) && this.lastOperation != '0') {
+
+            if (this._result == '') {
+                let value = parseFloat(this.lastOperation) * -1;
+                this.lastOperation = value.toString();
+                this.display = this.lastOperation;
+
+            } else {
+                let value = parseFloat(this.display) * -1;
+                // this.lastOperation = value.toString();
+                this.display = value.toString();
+                this._result = value.toString();
+            }
+
+
         }
     }
 
@@ -354,7 +366,7 @@ class Calculator {
 
         if (clear) {
             for (let i = 0; i < this._memory.length; i++) {
-                this._memory[i] = `M${i+1}`;
+                this._memory[i] = `M${i + 1}`;
             }
 
         } else {
