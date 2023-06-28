@@ -3,10 +3,6 @@
     src: url('../_fonts/digital-7.ttf');
 }
 
-body, .displayInputs{
-    background: #D9D9D9;
-}
-
 .calculator {
     margin-top: 40px;
     border: solid 1px #000;
@@ -25,7 +21,7 @@ body, .displayInputs{
     box-shadow: 1px 1px 5px #000;
     margin-left: 10px;
     color: chartreuse
-    /* display: none; */
+        /* display: none; */
 }
 
 .btn {
@@ -40,7 +36,9 @@ body, .displayInputs{
     margin-left: 75px;
 }
 
-#m1, #m2, #m3{
+#m1,
+#m2,
+#m3 {
     color: chartreuse
 }
 
@@ -66,13 +64,14 @@ body, .displayInputs{
     border-radius: 0;
 }
 
-#displaySide, #display {
+#displaySide,
+#display {
     border: 0px;
     font-family: 'Digital-7';
 }
 
 #display {
-    margin-bottom: 10px;  
+    margin-bottom: 10px;
     font-size: 2rem;
     font-weight: bold;
 }
@@ -92,3 +91,22 @@ ul {
 }
 
 
+
+
+@media screen and (max-width: 770px) {
+    div.cotaianerHistoric {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    button.clear {
+        display: none;
+    }
+    button.btn2 {
+        display: none;
+    }
+    div.row {
+        margin-left: 15px;
+    }
+}
