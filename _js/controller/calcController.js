@@ -340,7 +340,10 @@ class Calculator {
     }
 
     backspace() {
-
+        if (this._result == '') {
+            this.display = this.display.substring(0, this.display.length -1);
+            this.lastOperation = this.display;
+        }
     }
 
     cancelEntry() {
