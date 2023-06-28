@@ -296,6 +296,7 @@ class Calculator {
 
         try {
             this._result = eval(this._operations.join(' '));
+            this.addHistoric(`${this._operations.join(' ')} = ${this._result}`);
             return this._result;
 
         } catch (error) {
@@ -304,6 +305,14 @@ class Calculator {
             this.displaySide = '';
             this._result = '';
         }
+    }
+
+
+    addHistoric(value) {
+        
+        let li = document.createElement('li');
+        li.innerHTML = value;
+        document.getElementById('hlist').appendChild(li);
     }
 
 
@@ -341,7 +350,7 @@ class Calculator {
 
     backspace() {
         if (this._result == '') {
-            this.display = this.display.substring(0, this.display.length -1);
+            this.display = this.display.substring(0, this.display.length - 1);
             this.lastOperation = this.display;
         }
     }
