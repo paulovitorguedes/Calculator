@@ -71,6 +71,8 @@ class Calculator {
                 this.cancelEntry();
                 break;
             case 'Backspace':
+            case 'BS':
+                this.backspace();
                 break;
             case '=':
             case 'Enter':
@@ -145,8 +147,6 @@ class Calculator {
 
         if (this._result != '0') {
 
-
-
             let percent = 0;
 
             if (this.isOperation(this.lastOperation)) {
@@ -161,7 +161,7 @@ class Calculator {
                     percent = this.firstOperation / 100;
                 }
 
-
+                this.newOperation = percent.toString();
 
             } else if (this._operations.length > 2) {
                 // O último elemento é um número e já possui 3 elementos no Array
@@ -176,11 +176,12 @@ class Calculator {
 
                 }
 
+                this.lastOperation = percent.toString();
+
             }
 
             if (percent != 0) {
                 this.displaySide += ` ${percent}`;
-                this.lastOperation = percent.toString();
                 this.display = this.lastOperation;
                 this._operationsLastResult = 'percent';
                 this._result = '';
@@ -301,7 +302,7 @@ class Calculator {
 
             this.display = 'ERROR';
             this.displaySide = '';
-            this._result = '0';
+            this._result = '';
         }
     }
 
@@ -335,6 +336,10 @@ class Calculator {
         this.displaySide = '';
         this._result = '';
         // this.setMemory(true);
+
+    }
+
+    backspace() {
 
     }
 
