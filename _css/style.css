@@ -3,6 +3,14 @@
     src: url('../_fonts/digital-7.ttf');
 }
 
+div.container {
+    min-width: 410px;
+}
+
+label.dlabel {
+    display: none;
+}
+
 .calculator {
     margin-top: 40px;
     border: solid 1px #000;
@@ -109,4 +117,5 @@ ul {
     div.row {
         margin-left: 15px;
     }
+    
 }
