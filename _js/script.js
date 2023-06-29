@@ -1,1 +1,2 @@
-window.calculator = new Calculator
+// window.calculator = new Calculator;
+calculator = new Calculator;

@@ -1,7 +1,7 @@
 class Calculator {
 
     constructor() {
-        this._audio = new Audio('../../_sound/click.mp3')
+        //this._audio = new Audio('../../_sound/click.mp3')
         this._operations = new Array;
         this._memory = new Array;
         this._result = '';
@@ -9,14 +9,21 @@ class Calculator {
         this._displayEl = document.querySelector('#display');
         this._displaySideEl = document.querySelector('#displaySide');
 
+        this._audio = document.createElement('AUDIO');
+        
+
         this.initialise();
     }
 
     initialise() {
 
+        this._audio.setAttribute('src', '_sound/click.mp3');
+        document.body.appendChild(this._audio);
+
         this.initBtnEvents();
         this.clearAll();
         this.display = this.lastOperation;
+
     }
 
 
