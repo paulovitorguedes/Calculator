@@ -3,13 +3,31 @@
 
  [![Netlify Status](https://api.netlify.com/api/v1/badges/4fba899e-53fe-45eb-a311-89343ffd23a2/deploy-status)](https://paulovitorguedes-calculator.netlify.app/)
 
+ ![Interface-projeto-Calculator](_img/tela.png)
 
-Olá! Estou entusiasmado em compartilhar meu projeto de Calculadora em JavaScript. Como desenvolvedor apaixonado por programação, criei essa calculadora interativa para aprimorar meus estudos na linguagem JavaScript. Com uma interface amigável e funcionalidades abrangentes, O Calculator permite realizar operações matemáticas básicas e avançadas. Além disso, adicionei recursos extras, como histórico de cálculos e Opções de acrescentar valores na memória . Estou sempre em busca de aprimorar o projeto e estou aberto a feedbacks e sugestões. Se você está procurando uma calculadora JavaScript eficaz e fácil de usar, não hesite em conferir meu projeto. 
+Esta é uma calculadora web simples desenvolvida utilizando HTML5, CSS3 e JavaScript. Além das funcionalidades básicas de uma calculadora, neste projeto inclui alguns recursos como histórico de cálculos e opções para adicionar valores à memória, opção de habilitar o áudio das teclas, fonte caracterizada entre outras.
 
-Uma das principais vantagens deste projeto é a sua acessibilidade. Sendo baseada em JavaScript, a calculadora pode ser executada diretamente no navegador, dispensando a necessidade de qualquer instalação adicional. Isso significa que você pode usar a calculadora em qualquer dispositivo com um navegador moderno, seja um computador, tablet ou smartphone.
+## Funcionalidades
 
-Se você está interessado em experimentar o Calculator em JavaScript, convido você a visitar o link abaixo. Sinta-se à vontade para testar e compartilhar seus comentários e sugestões. Estou ansioso para ouvir o seu feedback!
+- **Operações básicas:** Adição, subtração, multiplicação, divisão e porcentagem.
+- **Memória:** Possibilidade de adicionar valores à memória e recuperá-los posteriormente.
+- **Histórico de cálculos:** Registra os cálculos realizados durante a sessão atual.
+- **Áudio das teclas:** Possibilidade em desabilitar o áudio das teclas, em default vem habilitada.
 
-Link do projeto: [Inserir o link do projeto aqui]
+## Como usar
 
-#CalculadoraJavaScript #DesenvolvedorWeb
+1. Faça o clone deste repositório ou baixe o arquivo zip.
+2. Abra o arquivo `index.html` em seu navegador web.
+3. Use a calculadora para realizar cálculos básicos.
+4. Utilize os botões "M+" para adicionar valores à memória e as  teclas "M1" "M2" Ou "M3" para recuperá-los.
+5. O histórico de cálculos é automaticamente exibido na lateral direita da calculadora.
+
+
+## Contribuindo
+
+Contribuições são bem-vindas! Se você deseja melhorar este projeto, sinta-se à vontade para abrir um problema ou enviar uma solicitação de pull request.
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](https://opensource.org/licenses/MIT).
+
